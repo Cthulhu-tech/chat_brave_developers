@@ -6,6 +6,7 @@ import { EnvConfig } from './utils/env/env'
 import { MessageModule } from './message/message.module'
 import { UsersModule } from './users/users.module'
 import { ChatsModule } from './chats/chats.module'
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ChatsModule } from './chats/chats.module'
     UsersModule,
     ChatsModule,
     MessageModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

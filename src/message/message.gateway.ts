@@ -3,7 +3,15 @@ import { CreateMessageDto } from './dto/create-message.dto'
 import { UpdateMessageDto } from './dto/update-message.dto'
 import { MessageService } from './message.service'
 
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: {
+    methods: ["GET", "POST"],
+    credentials: true,
+    transports: ['websocket', 'polling'],
+    optionsSuccessStatus: 200,
+  },
+  allowEIO3: true,
+})
 export class MessageGateway {
   constructor(private readonly messageService: MessageService) {}
 
