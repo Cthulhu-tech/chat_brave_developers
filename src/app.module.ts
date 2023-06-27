@@ -1,21 +1,23 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
+import { CommonConfigModule } from './utils/config/config'
 import { TokenMiddleware } from './middelwear/authCheck'
-import { OrmConnection } from './utils/db/connection'
-import { EnvConfig } from './utils/env/env'
 
 import { MessageModule } from './message/message.module'
 import { UsersModule } from './users/users.module'
 import { ChatsModule } from './chats/chats.module'
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module'
+import { TypeOrmModule } from '@nestjs/typeorm'
+
+import { UserEntity } from './users/entities/user.entity'
 
 @Module({
   imports: [
-    EnvConfig,
-    OrmConnection,
+    CommonConfigModule,
     UsersModule,
     ChatsModule,
     MessageModule,
     AuthModule,
+    TypeOrmModule.forFeature([UserEntity]),
   ],
   controllers: [],
   providers: [],
