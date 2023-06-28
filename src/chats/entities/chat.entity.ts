@@ -29,10 +29,4 @@ export class ChatEntity extends BaseEntity {
         name: 'chats_and_messages',
     })
     messages: MessageEntity[]
-
-    @ManyToMany(() => UserEntity, (user) => user.chats)
-    @JoinTable({
-        name: 'user_chats',
-    })
-    users: UserEntity[]
 }

@@ -32,7 +32,4 @@ export class UserEntity extends BaseEntity {
 
     @OneToMany(() => ChatEntity, (chat) => chat)
     chat: ChatEntity[]
-
-    @ManyToMany(() => ChatEntity, (chat) => chat.users)
-    chats: ChatEntity[]
 }
