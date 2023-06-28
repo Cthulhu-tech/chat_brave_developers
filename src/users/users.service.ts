@@ -1,26 +1,58 @@
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { CreateUserDto } from './dto/create-user.dto'
-import { UpdateUserDto } from './dto/update-user.dto'
-import { Injectable } from '@nestjs/common'
+import { UserEntity } from './entities/user.entity'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { hash } from 'bcrypt'
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
+  ){}
+
+  async create(createUserDto: CreateUserDto) {
+    if(!createUserDto.login || !createUserDto.password)
+      throw new HttpException('All fields must be filled', HttpStatus.BAD_REQUEST)
+
+    const findUser = await this.userRepository.findOneBy({
+      login: createUserDto.login,
+    })
+
+    if(findUser)
+      throw new HttpException('Such user exists', HttpStatus.BAD_REQUEST)
+
+    const createUser = await this.userRepository.create({
+      login: createUserDto.login,
+      password: await hash(createUserDto.password, 10),
+    })
+
+    const userSave = await this.userRepository.save(createUser)
+
+    return {
+      login: userSave.login,
+      id: userSave.id,
+      create_time: userSave.create_time,
+    }
   }
 
-  findAll() {
-    return `This action returns all users`;
-  }
+  async findOne(id: number) {
+    if(!id || isNaN(id))
+      throw new HttpException('All fields must be filled', HttpStatus.BAD_REQUEST)
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+    const findUser = await this.userRepository.findOne({
+      where: {
+        id,
+      }
+    })
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
+    if(!findUser) throw new HttpException('User not found', HttpStatus.BAD_REQUEST)
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+    return {
+      login: findUser.login,
+      id: findUser.id,
+      create_time: findUser.create_time,
+    }
   }
 }
