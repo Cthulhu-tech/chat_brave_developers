@@ -56,7 +56,6 @@ export class ChatsService {
   async findAll() {
     return await this.chatRepository
       .createQueryBuilder('chat')
-      .leftJoin('chat.users', 'users')
       .leftJoin('chat.chat_creater', 'chat_creater')
       .select(['chat.name', 'chat.id', 'chat.create_time', 'chat_creater.id', 'chat_creater.login'])
       .getMany()
