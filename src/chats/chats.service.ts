@@ -53,12 +53,12 @@ export class ChatsService {
     .getOne()
   }
 
-  async findAll(updateChatDto: UpdateChatDto) {
+  async findAll() {
     return await this.chatRepository
       .createQueryBuilder('chat')
       .leftJoin('chat.users', 'users')
       .leftJoin('chat.chat_creater', 'chat_creater')
-      .select(['chat.name', 'chat.id', 'chat.delete', 'chat.create_time', 'chat_creater.id', 'chat_creater.login'])
+      .select(['chat.name', 'chat.id', 'chat.create_time', 'chat_creater.id', 'chat_creater.login'])
       .getMany()
   }
 

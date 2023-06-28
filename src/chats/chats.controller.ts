@@ -14,8 +14,8 @@ export class ChatsController {
   }
 
   @Get()
-  findAll(@Body() updateChatDto: UpdateChatDto) {
-    return this.chatsService.findAll(updateChatDto)
+  findAll() {
+    return this.chatsService.findAll()
   }
 
   @Get(':id')
