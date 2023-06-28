@@ -31,9 +31,7 @@ export class ChatsController {
   @Delete(':id')
   remove(
     @Param('id') id: string,
-    @Body() updateChatDto: UpdateChatDto,
-    @Req() req: Request
   ) {
-    return this.chatsService.remove(+id, updateChatDto, req)
+    return this.chatsService.remove(+id)
   }
 }

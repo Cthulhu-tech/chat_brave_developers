@@ -90,13 +90,12 @@ export class ChatsService {
     }
   }
 
-  async remove(id: number, updateChatDto: UpdateChatDto, req: Request) {
+  async remove(id: number) {
     if(!id || isNaN(id)) 
       throw new HttpException('All fields must be filled', HttpStatus.BAD_REQUEST)
 
     const findChat = await this.chatRepository
       .createQueryBuilder('chat')
-      .leftJoinAndSelect('chat.users', 'users')
       .where({
         id,
       })
@@ -105,9 +104,9 @@ export class ChatsService {
     if(!findChat) 
       throw new HttpException('Not found', HttpStatus.BAD_REQUEST)
 
-    findChat.users = findChat.users.filter((user) => user.id !== req.body.user.id)
-
-    await this.chatRepository.manager.save(findChat)
+    await this.chatRepository.delete({
+      id,
+    })
 
     return {
       message: 'Chat delete',
