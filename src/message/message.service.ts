@@ -66,8 +66,7 @@ export class MessageService {
       message: saveMessage.message,
     }
     console.log({chat: chat.id.toString()} , {data: returnData})
-    client.broadcast.to(createMessageDto.room.toString()).emit('CREATE_MESSAGE', returnData)
-    client.emit('CREATE_MESSAGE', returnData)
+    client.in(createMessageDto.room.toString()).emit('CREATE_MESSAGE', returnData)
   }
 
   async disconnect (client: Socket) {
