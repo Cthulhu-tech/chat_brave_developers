@@ -77,8 +77,8 @@ export class MessageService {
 
   async findAll(chatId: number, client: Socket) {
     if(!chatId || isNaN(chatId))
-      throw new HttpException('All fields must be filled', HttpStatus.BAD_REQUEST)
-
+      throw new HttpException('All fields must be filled', 20)
+    console.log(chatId)
     const messages = await this.messageRepository
       .createQueryBuilder('message')
       .leftJoin('message.chats', 'chats')
