@@ -78,6 +78,16 @@ export class MessageService {
   async findAll(chatId: number, client: Socket) {
     if(!chatId || isNaN(chatId))
       throw new HttpException('All fields must be filled', 20)
+
+    const findRoom = await this.chatRepository.findOneBy({
+      id: chatId,
+    })
+
+    if(!findRoom) {
+      client.emit('FIND_ALL_MESSAGE', { error: 'Not found' })
+      client.disconnect()
+    }
+
     const messages = await this.messageRepository
       .createQueryBuilder('message')
       .leftJoin('message.chats', 'chats')
