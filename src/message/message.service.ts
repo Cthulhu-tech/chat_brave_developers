@@ -44,14 +44,14 @@ export class MessageService {
       id: createMessageDto.user,
     })
 
-    const chat = await this.chatRepository.findBy({
+    const chat = await this.chatRepository.findOneBy({
       id: createMessageDto.room,
     })
 
     const createMessage = await this.messageRepository.create({
       message: createMessageDto.message,
       message_creater: user,
-      chats: chat
+      chats: [chat]
     })
 
     const saveMessage = await this.messageRepository.save(createMessage)
@@ -66,7 +66,7 @@ export class MessageService {
       message: saveMessage.message,
     }
 
-    client.to(createMessageDto.room.toString()).emit('CREATE_MESSAGE', returnData)
+    client.to(chat.id.toString()).emit('CREATE_MESSAGE', returnData)
   }
 
   async disconnect (client: Socket) {
