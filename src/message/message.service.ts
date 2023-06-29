@@ -66,7 +66,8 @@ export class MessageService {
       message: saveMessage.message,
     }
     console.log({chat: createMessageDto.room.toString()} , {data: returnData})
-    client.to(createMessageDto.room.toString()).emit('CREATE_MESSAGE', returnData)
+    client.broadcast.to(createMessageDto.room.toString()).emit('CREATE_MESSAGE', returnData)
+    client.emit('CREATE_MESSAGE', returnData)
   }
 
   async disconnect (client: Socket) {
@@ -104,7 +105,7 @@ export class MessageService {
   async joinRoom(data: JoinRoom, client: Socket) {
     client.join(data.room_id)
     console.log({chat: data.room_id})
-    client.to(data.room_id).emit('RECEIVE_CLIENT_JOINED', {
+    client.broadcast.to(data.room_id).emit('RECEIVE_CLIENT_JOINED', {
       user_server_id: client.id,
     })
   }
