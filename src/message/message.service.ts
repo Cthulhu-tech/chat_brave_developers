@@ -66,8 +66,7 @@ export class MessageService {
       message: saveMessage.message,
     }
 
-    client.broadcast.to(createMessageDto.room.toString()).emit('CREATE_MESSAGE', returnData)
-    client.emit('CREATE_MESSAGE', returnData)
+    client.to(createMessageDto.room.toString()).emit('CREATE_MESSAGE', returnData)
   }
 
   async disconnect (client: Socket) {
