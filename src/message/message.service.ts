@@ -65,8 +65,9 @@ export class MessageService {
       },
       message: saveMessage.message,
     }
-
-    client.to(chat.id.toString()).emit('CREATE_MESSAGE', returnData)
+    console.log({chat: chat.id.toString()} , {data: returnData})
+    client.broadcast.in(chat.id.toString()).emit('CREATE_MESSAGE', returnData)
+    client.emit('CREATE_MESSAGE', returnData)
   }
 
   async disconnect (client: Socket) {
