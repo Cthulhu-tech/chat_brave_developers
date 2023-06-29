@@ -86,6 +86,7 @@ export class MessageService {
     if(!findRoom) {
       client.emit('FIND_ALL_MESSAGE', { error: 'Not found' })
       client.disconnect()
+      return
     }
 
     const messages = await this.messageRepository
