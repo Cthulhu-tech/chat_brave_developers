@@ -12,7 +12,7 @@ import { Socket } from 'socket.io'
       credentials: true,
       transports: ['websocket', 'polling'],
       optionsSuccessStatus: 200,
-      allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept',
+      allowedHeaders: 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
   },
   allowEIO3: true
 })
