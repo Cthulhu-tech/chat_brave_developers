@@ -7,7 +7,7 @@ import { Socket } from 'socket.io'
 
 @WebSocketGateway({
     cors: {
-      origin: 'https://main--brave-developers-chat.netlify.app',
+      origin: 'https://main--brave-developers-chat.netlify.app/',
       methods: ["GET", "POST"],
       credentials: true,
       transports: ['websocket', 'polling'],
