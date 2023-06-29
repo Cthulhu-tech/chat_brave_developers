@@ -1,42 +1,48 @@
-import { WebSocketGateway, SubscribeMessage, MessageBody } from '@nestjs/websockets'
-import { CreateMessageDto } from './dto/create-message.dto'
+import { WebSocketGateway, SubscribeMessage, MessageBody, ConnectedSocket, OnGatewayDisconnect } from '@nestjs/websockets'
+import { CreateMessageDto, JoinRoom } from './dto/create-message.dto'
 import { UpdateMessageDto } from './dto/update-message.dto'
 import { MessageService } from './message.service'
 
+import { Socket } from 'socket.io'
+
 @WebSocketGateway({
-  cors: {
-    methods: ["GET", "POST"],
-    credentials: true,
-    transports: ['websocket', 'polling'],
-    optionsSuccessStatus: 200,
+    cors: {
+      origin: 'http://localhost:3000',
+      methods: ["GET", "POST"],
+      credentials: true,
+      transports: ['websocket', 'polling'],
+      optionsSuccessStatus: 200,
   },
-  allowEIO3: true,
+  allowEIO3: true
 })
-export class MessageGateway {
+export class MessageGateway  implements OnGatewayDisconnect {
   constructor(private readonly messageService: MessageService) {}
 
-  @SubscribeMessage('createMessage')
-  create(@MessageBody() createMessageDto: CreateMessageDto) {
-    return this.messageService.create(createMessageDto);
+  @SubscribeMessage('JOIN_ROOM')
+  joinRoom(
+    @MessageBody() data: JoinRoom,
+    @ConnectedSocket() client: Socket
+  ) {
+    return this.messageService.joinRoom(data, client)
   }
 
-  @SubscribeMessage('findAllMessage')
-  findAll() {
-    return this.messageService.findAll();
+  @SubscribeMessage('CREATE_MESSAGE')
+  create(
+    @MessageBody() createMessageDto: CreateMessageDto,
+    @ConnectedSocket() client: Socket
+  ) {
+    return this.messageService.create(createMessageDto, client)
   }
 
-  @SubscribeMessage('findOneMessage')
-  findOne(@MessageBody() id: number) {
-    return this.messageService.findOne(id);
+  @SubscribeMessage('FIND_ALL_MESSAGE')
+  findAll(
+    @MessageBody() updateMessageDto: UpdateMessageDto,
+    @ConnectedSocket() client: Socket
+    ) {
+    return this.messageService.findAll(+updateMessageDto.chatId, client)
   }
 
-  @SubscribeMessage('updateMessage')
-  update(@MessageBody() updateMessageDto: UpdateMessageDto) {
-    return this.messageService.update(updateMessageDto.id, updateMessageDto);
-  }
-
-  @SubscribeMessage('removeMessage')
-  remove(@MessageBody() id: number) {
-    return this.messageService.remove(id);
+  handleDisconnect(client: Socket){
+    return this.messageService.disconnect(client)
   }
 }
