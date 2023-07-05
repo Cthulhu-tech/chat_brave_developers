@@ -24,7 +24,7 @@
 		"@nestjs/common": "^9.0.0",
 		"@nestjs/config": "^3.0.0",
 		"@nestjs/core": "^9.0.0",
-		"@nestjs/mapped-types": "*",
+		"@nestjs/mapped-types": "^2.0.2",
 		"@nestjs/platform-express": "^9.0.0",
 		"@nestjs/platform-socket.io": "^9.4.0",
 		"@nestjs/typeorm": "^10.0.0",
@@ -34,6 +34,7 @@
 		"@types/jsonwebtoken": "^9.0.2",
 		"@types/validator": "^13.7.17",
 		"bcrypt": "^5.1.0",
+		"class-transformer": "^0.5.1",
 		"class-validator": "^0.14.0",
 		"cookie-parser": "^1.4.6",
 		"dotenv": "^16.3.1",
@@ -44,8 +45,7 @@
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.2.0",
 		"socket.io": "^4.7.0",
-		"typeorm": "^0.3.17",
-		"yup": "^1.2.0"
+		"typeorm": "^0.3.17"
 	},
 	"devDependencies": {
 		"@nestjs/cli": "^9.0.0",

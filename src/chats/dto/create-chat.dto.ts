@@ -1,4 +1,4 @@
-import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
+import { IsNotEmpty, MaxLength, MinLength } from "@nestjs/class-validator/types/index";
 import { UserEntity } from "src/users/entities/user.entity";
 
 export class CreateChatDto {

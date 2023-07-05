@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm i --save validator class-validator class-transformer
+RUN npm i
 
 COPY . .
 
