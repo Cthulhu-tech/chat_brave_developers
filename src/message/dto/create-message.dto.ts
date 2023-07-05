@@ -1,26 +1,26 @@
 export class CreateMessageDto {
-    message: string
-    user: number
-    room: number
+	message: string;
+	user: number;
+	room: number;
 }
 
 class UserDto {
-    user: string
+	user: string;
 }
 
 export class SendOffer extends UserDto {
-    offer: string
+	offer: string;
 }
 
 export class SendAnswer extends UserDto {
-    answer: string
+	answer: string;
 }
 
 export class SendIceCandidate extends UserDto {
-    candidate: string
+	candidate: string;
 }
 
 export type JoinRoom = {
-    room_id: string
-    user_id: number
-}
+	room_id: string;
+	user_id: number;
+};

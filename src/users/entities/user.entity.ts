@@ -1,35 +1,42 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm'
+import {
+	BaseEntity,
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	CreateDateColumn,
+	OneToMany,
+} from "typeorm";
 
-import { MessageEntity } from '../../message/entities/message.entity'
-import { ChatEntity } from '../../chats/entities/chat.entity'
+import { MessageEntity } from "../../message/entities/message.entity";
+import { ChatEntity } from "../../chats/entities/chat.entity";
 
-@Entity('Users')
+@Entity("Users")
 export class UserEntity extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number
+	@PrimaryGeneratedColumn()
+	id: number;
 
-    @Column({
-        length: 55
-    })
-    login: string
+	@Column({
+		length: 55,
+	})
+	login: string;
 
-    @Column({
-        length: 255,
-        nullable: true,
-    })
-    token: string
+	@Column({
+		length: 255,
+		nullable: true,
+	})
+	token: string;
 
-    @Column({
-        length: 535
-    })
-    password: string
-    
-    @CreateDateColumn()
-    create_time: Date
-        
-    @OneToMany(() => MessageEntity, (message) => message)
-    message: MessageEntity[]
+	@Column({
+		length: 535,
+	})
+	password: string;
 
-    @OneToMany(() => ChatEntity, (chat) => chat)
-    chat: ChatEntity[]
+	@CreateDateColumn()
+	create_time: Date;
+
+	@OneToMany(() => MessageEntity, message => message)
+	message: MessageEntity[];
+
+	@OneToMany(() => ChatEntity, chat => chat)
+	chat: ChatEntity[];
 }

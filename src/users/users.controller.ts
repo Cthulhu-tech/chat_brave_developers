@@ -1,20 +1,20 @@
-import { Controller, Get, Post, Body, Param, HttpCode } from '@nestjs/common'
-import { CreateUserDto } from './dto/create-user.dto'
-import { UsersService } from './users.service'
+import { Controller, Get, Post, Body, Param, HttpCode } from "@nestjs/common";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UsersService } from "./users.service";
 
-@Controller('users')
+@Controller("users")
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+	constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  @HttpCode(201)
-  async create(@Body() createUserDto: CreateUserDto) {
-    return await this.usersService.create(createUserDto)
-  }
+	@Post()
+	@HttpCode(201)
+	async create(@Body() createUserDto: CreateUserDto) {
+		return await this.usersService.create(createUserDto);
+	}
 
-  @Get(':id')
-  @HttpCode(200)
-  async findOne(@Param('id') id: string) {
-    return await this.usersService.findOne(+id)
-  }
+	@Get(":id")
+	@HttpCode(200)
+	async findOne(@Param("id") id: string) {
+		return await this.usersService.findOne(+id);
+	}
 }
