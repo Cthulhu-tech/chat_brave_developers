@@ -41,7 +41,7 @@ export class AuthService {
 		);
 	}
 
-	private async setRefreshToken(res: Response, token) {
+	private async setRefreshToken(res: Response, token: string) {
 		res.cookie("refreshtoken", token, {
 			httpOnly: true,
 			path: "/",
