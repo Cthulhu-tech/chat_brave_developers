@@ -1,4 +1,9 @@
-import { IsNotEmpty, Matches, MaxLength, MinLength } from "@nestjs/class-validator";
+import {
+	IsNotEmpty,
+	Matches,
+	MaxLength,
+	MinLength,
+} from "@nestjs/class-validator";
 
 export class CreateUserDto {
 	@IsNotEmpty()
