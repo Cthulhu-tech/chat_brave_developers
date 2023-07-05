@@ -3,7 +3,7 @@ import {
 	MaxLength,
 	MinLength,
 	Matches,
-} from "@nestjs/class-validator";
+} from "class-validator";
 
 export class CreateAuthDto {
 	@IsNotEmpty()
