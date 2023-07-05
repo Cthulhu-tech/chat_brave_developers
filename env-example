@@ -1,0 +1,12 @@
+// db host
+host
+// db port
+port_sql
+// db user login
+user
+// db user password
+password
+// db name
+database
+// origin cors
+origin
