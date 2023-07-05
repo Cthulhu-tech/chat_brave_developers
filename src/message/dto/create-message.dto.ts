@@ -1,6 +1,13 @@
+import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
+
 export class CreateMessageDto {
+	@IsNotEmpty()
+	@MinLength(1)
+	@MaxLength(255)
 	message: string;
+	@IsNotEmpty()
 	user: number;
+	@IsNotEmpty()
 	room: number;
 }
 

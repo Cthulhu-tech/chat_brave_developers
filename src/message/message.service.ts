@@ -18,34 +18,7 @@ export class MessageService {
 		private userRepository: Repository<UserEntity>,
 	) {}
 
-	private async searchRoom(data: JoinRoom, client: Socket) {
-		const roomId = Number(data?.room_id);
-		if (!data?.room_id || isNaN(roomId))
-			throw new HttpException(
-				"All fields must be filled",
-				HttpStatus.BAD_REQUEST,
-			);
-		const findRoom = await this.chatRepository
-			.createQueryBuilder("chat")
-			.leftJoinAndSelect("chat.users", "users")
-			.where("chat.id = :id", {
-				id: data.room_id,
-			})
-			.getOne();
-		if (!findRoom) {
-			client.leave(roomId.toString());
-			throw new HttpException("Not found", HttpStatus.BAD_REQUEST);
-		}
-		return findRoom;
-	}
-
 	async create(createMessageDto: CreateMessageDto, client: Socket) {
-		if (!createMessageDto.message)
-			throw new HttpException(
-				"All fields must be filled",
-				HttpStatus.BAD_REQUEST,
-			);
-
 		const user = await this.userRepository.findOneBy({
 			id: createMessageDto.user,
 		});
@@ -88,7 +61,7 @@ export class MessageService {
 
 	async findAll(chatId: number, client: Socket) {
 		if (!chatId || isNaN(chatId))
-			throw new HttpException("All fields must be filled", 20);
+			throw new HttpException("All fields must be filled", 401);
 
 		const findRoom = await this.chatRepository.findOneBy({
 			id: chatId,

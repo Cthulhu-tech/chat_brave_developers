@@ -13,12 +13,6 @@ export class UsersService {
 	) {}
 
 	async create(createUserDto: CreateUserDto) {
-		if (!createUserDto.login || !createUserDto.password)
-			throw new HttpException(
-				"All fields must be filled",
-				HttpStatus.BAD_REQUEST,
-			);
-
 		const findUser = await this.userRepository.findOneBy({
 			login: createUserDto.login,
 		});
