@@ -1,6 +1,7 @@
 version: '3.5'
 
 services:
+
   db:
     image: postgres
     restart: always
@@ -17,8 +18,15 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: nest-docker-postgres
+    env_file:
+      - ./.env
     environment:
-      - PORT=${PORT}
+      host: ${host}
+      port_sql: ${port_sql}
+      user: ${user}
+      password: ${password}
+      database: ${database}
+      origin: ${origin}
     ports:
       - '3000:3000'
     depends_on:
