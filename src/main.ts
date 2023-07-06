@@ -5,9 +5,6 @@ import { AppModule } from "./app.module";
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
-	app.useGlobalPipes(new ValidationPipe({
-		transform: true,
-	}));
 	app.enableCors({
 		origin: 'https://brave-developers-chat.netlify.app/',
 		methods: "GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS",
@@ -16,6 +13,9 @@ async function bootstrap() {
 		allowedHeaders:
 			"Authorization, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
 	});
+	app.useGlobalPipes(new ValidationPipe({
+		transform: true,
+	}));
 	app.use(cookieParser());
 	await app.listen(process.env.PORT || 3000);
 }
