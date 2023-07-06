@@ -8,9 +8,8 @@ async function bootstrap() {
 	app.useGlobalPipes(new ValidationPipe({
 		transform: true,
 	}));
-	console.log(process.env.origin)
 	app.enableCors({
-		origin: process.env.origin,
+		origin: 'https://brave-developers-chat.netlify.app/',
 		methods: "GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS",
 		credentials: true,
 		optionsSuccessStatus: 200,
