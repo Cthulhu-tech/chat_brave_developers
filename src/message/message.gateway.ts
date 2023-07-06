@@ -26,7 +26,7 @@ import { Socket } from "socket.io";
 export class MessageGateway implements OnGatewayDisconnect {
 	constructor(private readonly messageService: MessageService) {}
 
-	@SubscribeMessage("JOIN_ROOM")
+	@SubscribeMessage("JOIN_ROOM") 
 	joinRoom(@MessageBody() data: JoinRoom, @ConnectedSocket() client: Socket) {
 		return this.messageService.joinRoom(data, client);
 	}
