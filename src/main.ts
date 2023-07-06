@@ -9,7 +9,7 @@ async function bootstrap() {
 		origin: 'https://main--brave-developers-chat.netlify.app',
 		methods: "GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS",
 		credentials: true,
-		optionsSuccessStatus: 200,
+		optionsSuccessStatus: 200, 
 		allowedHeaders:
 			"Authorization, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers",
 	});
